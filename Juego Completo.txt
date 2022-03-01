@@ -1,0 +1,918 @@
+									ALGORITMOS
+ 
+	A continuacion presentamos los diferentes algoritmos que se utilizaron para el Juego del Laberinto:
+
+
+	
+	1) Algoritmo del MENÚ PRINCIPAL:
+		Este es el centro de nuestro juego ya que depende la opcion del Jugador, el menú principal nos llevara a ejecutar dicha acción para ello se hizo 			uso de un ciclo para que terminando la acción deseada vuelva a presentar las opciones hasta que se le de la instrucción SALIR.
+		
+		Var opcion 
+	
+		mientras (opcion != 5) 
+
+			Escribir "MENÚ PRINCIPAL"
+			Escribir "Seleccione un Número:"
+			Escribir "	1. JUGAR"
+			Escribir "	2. CREAR MAPA"
+			Escribir "	3. REPORTES"
+			Escribir "	4. VISUALIZAR MAPA"
+			Escribir "	5. SALIR"
+			Leer opcion
+
+			Si (opcion == 1) entonces
+				Ejecutar la acción Jugar
+			finsi
+
+			Si (opcion == 2) entonces
+				Permitir al Jugador crear un mapa
+			finsi 
+			
+			Si (opcion == 3) entonces
+				Mostrar reportes del Juego
+			finsi
+
+			Si (opcion == 4) entonces
+				Visualizar mapas
+			finsi
+
+			Si (opcion == 5) entonces
+				Escribir "------Gracias por Jugar------"
+			finsi
+				
+		fin_mientras
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+		
+	2) Algoritmo para JUGAR:
+		Este algoritmo le va brindar la opcion al Jugador de poder jugar el laberinto e intetactuar con el juego utilizando comandos, este algoritmo es tanto 		        del Jugador como del Bot, ya que ambos se ejecutan por turnos, el cual es ejecutado por medio de ciclos para garantizar que durante cada turno tanto el 		Jugador como el Bot hagan alguna acción.
+		
+		    Var MOVERA = MOVER-A
+        	    Var movera = mover-a
+        	    Var MOVERD = MOVER-D
+        	    Var moverd = mover-d
+        	    Var MOVERW = MOVER-W
+        	    Var moverw = mover-w
+        	    Var MOVERS = MOVER-S
+        	    Var movers = mover-s
+        	    Var MIRAR = MIRAR
+        	    Var mirar = mirar
+        	    Var ORO = ORO
+        	    Var oro = oro
+      	    	    Var OROR = ORO_REQUERIDO
+                    Var oror = oro_requerido
+            	    Var LEVANTAR = LEVANTAR
+                    Var levantar = levantar
+            	    Var NO = NO
+                    Var no = no
+                    Var J = J
+            	    Var O = O
+                    Var G = G
+                    Var U = #
+             	    Var B = B
+            	    Var S = S
+        
+            	    Escribir "Selecione un Número:"  
+            	    Escribir "    1. Comenzar a Jugar"
+            	    Escribir "    2. Regresar al MENU PRINCIPAL"
+            	    Leer opcion
+        
+                    Si (opcion == 1) entonces
+                    	Var comando
+                    	Var palabra
+                    	Var llave
+                   	Var botfila = 0
+                 	Var botcolum = 0
+                    	Var posfila
+                    	Var poscolum
+                    	Var antfila
+                    	Var antcolum
+                    	Var bofila
+                    	Var bocolum
+                    	Var turno = 0
+                    	Var fallo = 3
+                    	Var oroSalida = 5
+                    	Var oroAcumulado = 0
+                    	Var aleatorio
+                
+                    	matriz[aleatorio][aleatorio] = J
+                    	posfila = aleatorio
+                    	poscolum = aleatorio
+                    	antfila = aleatorio
+                    	antcolum = aleatorio
+
+                    	Si (aleatorio >= 15) entonces
+                        	botfila = aleatorio - 2
+                        	botcolum = aleatorio - 2
+
+	                sino Si (aleatorio < 15) entonces
+                        	botfila = aleatorio + 2
+                        	botcolum = aleatorio + 2
+                    	finsi
+	
+                    	matriz[botfila][botcolum] = B
+
+                    	mientras (turno == 0) hacer
+
+                        	mientras (turno == 0 && fallo > 0) hacer
+                       	    		Escribir "Escriba MOVER + la letra A,S,D ó W para avanzar Ej. MOVER-A, MIRAR para ver donde está, ORO para saber cuanto oro a 						          recolectado, u ORO_REQUERIDO para saber cuanto Oro necesita para salir"
+                            		Escribir"Recuerde que cada comandos cuenta como un turno");
+                            		Leer comando
+
+                            	Si (comando == MOVERA || comando == movera || comando == MOVERD || comando == moverd || comando == MOVERW || comando == moverw || 
+			            comando == MOVERS || comando == movers || comando == MIRAR || comando == mirar || comando == ORO || comando == oro || comando == 				    OROR || comando == oror) entonces
+
+                                Si (comando == MOVERA || comando == movera) entonces
+
+                                    antfila = posfila
+                                    antcolum = poscolum
+                                    poscolum = poscolum - 1	
+
+                                    Si (matriz[posfila][poscolum] == O) entonces							
+                                        matriz[posfila][poscolum] = J
+                                        matriz[antfila][antcolum] = O
+                                        Escribir "    Se realizó el movimiento"
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == G) entonces 
+                                        Escribir "Ingrese la palabra LEVANTAR para recoger el oro, de lo contrario ponga NO"
+                                        Leer palabra
+
+                                        Si (palabra == LEVANTAR || palabra == levantar || palabra == NO || palabra == no) entonces
+
+                                            Si (palabra == LEVANTAR) || palabra == levantar) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = O
+                                                oroAcumulado = oroAcumulado + 1
+                                                Escribir "    +1 de Oro"
+                                                Escribir "    ORO ACUMULADO: " + oroAcumulado + " unidades de Oro"
+                                            finsi
+
+                                            Si (palabra == NO || palabra == no) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = G
+                                            finsi
+
+                                            Escribir "    Se realizó el movimiento"	
+
+                                            fallo = 3
+                                            turno = 1
+
+                                        sino
+                                            System.out.println("    Comando no Reconocido");
+                                            System.out.println("    No se realizó el movimiento");	
+                                            System.out.println();
+                                            poscolum = poscolum + 1;                                        
+                                            fallo = 3;
+                                            turno = 1;
+                                        finsi    
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == U) entonces
+                                        Escribir "    No se puede pasar por los #"
+                                        Escribir "    No se realizó el movimiento"
+                                        poscolum = poscolum + 1
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == B) entonces
+                                        Escribir "    Fuiste atrapado"
+                                        fallo = 0
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == S) entonces							
+
+                                        Si (oroAcumulado < oroSalida ) entonces
+                                            Escribir "    No tienes el Oro necesario para salir, se requieren: " + oroSalida + " unidades de Oro"
+                                            Escribir "    No se realizó el movimiento"
+                                            poscolum = poscolum + 1
+                                            fallo = 3
+                                            turno = 1
+                                        finsi                                    
+
+                                        Si (oroAcumulado == oroSalida) entonces
+                                            Escribir "Tienes suficiente Oro para escapar"
+                                            Escribir "Apresurate escribe SALIR para ganar"
+                                            Leer llave
+                                            fallo = 4
+                                            turno = 1
+                                        finsi
+                                    finsi    
+                                finsi
+
+                                Si (comando == MOVERD || comando == moverd) entonces
+
+                                    antfila = posfila
+                                    antcolum = poscolum
+                                    poscolum = poscolum + 1
+
+                                    Si (matriz[posfila][poscolum] == O) entonces							
+                                        matriz[posfila][poscolum] = J
+                                        matriz[antfila][antcolum] = O
+                                        Escribir "    Se realizó el movimiento"
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == G) entonces
+                                        Escribir "Ingrese la palabra LEVANTAR para recoger el oro, de lo contrario ponga NO"
+                                        Leer palabra
+
+                                        Si (palabra == LEVANTAR || palabra == levantar || palabra == NO || palabra == no) entonces
+
+                                            Si (palabra == LEVANTAR || palabra == levantar) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = O
+                                                oroAcumulado = oroAcumulado + 1
+                                                Escribir "    +1 de Oro"
+                                                Escribir "    ORO ACUMULADO: " + oroAcumulado + " unidades de Oro"
+                                            finsi
+
+                                            Si (palabra == NO || palabra == no) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = G
+                                            finsi
+
+                                            Escribir "    Se realizó el movimiento"	
+                                            fallo = 3
+                                            turno = 1
+
+                                        sino
+                                            Escribir "    Comando no Reconocido"
+                                            Escribir "    No se realizó el movimiento"
+                                            poscolum = poscolum - 1                                        
+                                            fallo = 3
+                                            turno = 1
+                                        finsi
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == U) entonces
+                                        Escribir "    No se puede pasar por los #"
+                                        Escribir "    No se realizó el movimiento"
+                                        poscolum = poscolum - 1
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == B) entonces 
+                                        Escribir "    Fuiste atrapado"
+                                        fallo = 0
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == S) entonces		
+
+                                        Si (oroAcumulado < oroSalida ) entonces
+                                            Escribir "    No tienes el Oro necesario para salir, se requieren: " + oroSalida + " unidades de Oro"
+                                            Escribir "    No se realizó el movimiento"
+                                            poscolum = poscolum + 1
+                                            fallo = 3
+                                            turno = 1
+                                        finsi                        
+
+                                        Si (oroAcumulado == oroSalida) entonces
+                                            Escribir "Tienes suficiente Oro para escapar"
+                                            Escribir "Apresurate escribe SALIR para ganar"
+                                            Leer llave
+                                            fallo = 4
+                                            turno = 1
+                                        finsi                                    
+                                    finsi
+                                finsi
+
+                                Si (comando == MOVERW || comando == moverw) entonces
+
+                                    antcolum = poscolum
+                                    antfila = posfila
+                                    posfila = posfila - 1
+
+                                    Si (matriz[posfila][poscolum] == O) entonces							
+                                        matriz[posfila][poscolum] = J
+                                        matriz[antfila][antcolum] = O
+                                        Escribir"    Se realizó el movimiento"
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == G) entonces
+                                        Escribir "Ingrese la palabra LEVANTAR para recoger el oro, de lo contrario ponga NO"
+                                        Leer palabra
+
+                                        Si (palabra == LEVANTAR || palabra == levantar || palabra == NO || palabra == no) entonces
+
+                                            Si (palabra == LEVANTAR) || palabra == levantar) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = O
+                                                oroAcumulado = oroAcumulado + 1;
+                                                Escribir "    +1 de Oro"
+                                                Escribir "    ORO ACUMULADO: " + oroAcumulado + " unidades de Oro"
+					    finsi
+
+                                            Si (palabra == NO || palabra == no) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = G
+                                            finsi
+
+                                            Escribir "    Se realizó el movimiento"
+                                            fallo = 3
+                                            turno = 1
+
+                                        sino
+                                            Escribir "    Comando no Reconocido"
+                                            Escribir "    No se realizó el movimiento"
+                                            posfila = posfila + 1                             
+                                            fallo = 3
+                                            turno = 1
+                                        finsi
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == U) entonces
+                                        Escribir "    No se puede pasar por los #"
+                                        Escribir "    No se realizó el movimiento"
+                                        posfila = posfila + 1
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == B) entonces
+                                        Escribir "    Fuiste atrapado"
+                                        fallo = 0
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == S) entonces					
+
+                                        Si (oroAcumulado < oroSalida ) entonces
+                                            Escribir "    No tienes el Oro necesario para salir, se requieren: " + oroSalida + " unidades de Oro"
+                                            Escribir "    No se realizó el movimiento"
+                                            poscolum = poscolum + 1
+                                            fallo = 3
+                                            turno = 1
+                                        finsi                        
+
+                                        Si (oroAcumulado == oroSalida) entonces
+                                            Escribir "Tienes suficiente Oro para escapar"
+                                            Escribir "Apresurate escribe SALIR para ganar"
+                                            Leer llave
+                                            fallo = 4
+                                            turno = 1
+                                        finsi                                    
+                                    finsi
+                                finsi
+
+                                Si (comando == MOVERS || comando == movers) entonces
+
+                                    antcolum = poscolum
+                                    antfila = posfila
+                                    posfila = posfila + 1
+
+                                    Si (matriz[posfila][poscolum] == O) entonces							
+                                        matriz[posfila][poscolum] = J
+                                        matriz[antfila][antcolum] = O
+                                        Escribir "    Se realizó el movimiento"
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == G) entonces
+                                        Escribir "Ingrese la palabra LEVANTAR para recoger el oro, de lo contrario ponga NO"
+                                        Leer palabra
+
+                                        Si (palabra == LEVANTAR) || palabra == levantar || palabra == NO) || palabra == no) entonces
+
+                                            Si (palabra == LEVANTAR || palabra == levantar) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = O
+                                                oroAcumulado = oroAcumulado + 1
+                                                Escribir "    +1 de Oro"
+                                                Escribir "    ORO ACUMULADO: " + oroAcumulado + " unidades de Oro"
+                                            finsi
+
+                                            Si (palabra == NO || palabra == no) entonces
+                                                matriz[posfila][poscolum] = J
+                                                matriz[antfila][antcolum] = G
+                                            finsi
+
+                                            Escribir "    Se realizó el movimiento"
+                                            fallo = 3
+                                            turno = 1
+
+                                        sino
+                                            Escribir "    Comando no Reconocido"
+                                            Escribir "    No se realizó el movimiento"
+                                            posfila = posfila - 1                          
+                                            fallo = 3
+                                            turno = 1
+                                        finsi
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == U) entonces
+                                        Escribir "    No se puede pasar por los #
+                                        Escribir "    No se realizó el movimiento
+                                        posfila = posfila - 1
+                                        fallo = 3
+                                        turno = 1
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == B) entonces
+                                        Escribir "    Fuiste atrapado"
+                                        fallo = 0
+                                    finsi
+
+                                    Si (matriz[posfila][poscolum] == S) entonces				
+
+                                        Si (oroAcumulado < oroSalida ) entonces
+                                            Escribir "    No tienes el Oro necesario para salir, se requieren: " + oroSalida + " unidades de Oro"
+                                            Escribir "    No se realizó el movimiento"
+                                            poscolum = poscolum + 1
+                                            fallo = 3
+                                            turno = 1
+                                        finsi                                    
+
+                                        Si (oroAcumulado == oroSalida) entonces
+                                            Escribir "Tienes suficiente Oro para escapar"
+                                            Escribir "Apresurate escribe SALIR para ganar"
+                                            Leer llave
+                                            fallo = 4
+                                            turno = 1
+                                        finsi                                   
+                                    finsi
+                                finsi
+
+                                Si (comando == MIRAR || comando == mirar) entonces
+                                    Escribir matriz[posfila - 2][poscolum - 2] Escribir matriz[posfila - 2][poscolum - 1] Escribir matriz[posfila - 2][poscolum] 				    	    Escribir matriz[posfila - 2][poscolum + 1] Escribir matriz[posfila - 2][poscolum + 2]
+                                    Escribir matriz[posfila - 1][poscolum - 2] Escribir matriz[posfila - 1][poscolum - 1] Escribir matriz[posfila - 1][poscolum] 				    	    Escribir matriz[posfila - 1][poscolum + 1] Escribir matriz[posfila - 1][poscolum + 2]
+                                    Escribir matriz[posfila][poscolum - 2] Escribir matriz[posfila][poscolum - 1] Escribir matriz[posfila][poscolum]             				    	    Escribir matriz[posfila][poscolum + 1] Escribir matriz[posfila][poscolum + 2]
+                                    Escribir matriz[posfila + 1][poscolum - 2] Escribir matriz[posfila + 1][poscolum - 1] Escribir matriz[posfila + 1][poscolum] 				    	    Escribir matriz[posfila + 1][poscolum + 1] Escribir matriz[posfila + 1][poscolum + 2]
+                                    Escribir matriz[posfila + 2][poscolum - 2] Escribir matriz[posfila + 2][poscolum - 1] Escribir matriz[posfila + 2][poscolum] 				     	    Escribir matriz[posfila + 2][poscolum + 1]) Escribir matriz[posfila + 2][poscolum + 2]);
+                                    fallo = 3
+                                    turno = 1                                
+                                finsi
+
+                                Si (comando == ORO) || comando == oro) entonces
+                                    Escribir "    Su cantidad de Oro actual es de: " + oroAcumulado + " unidades"
+                                    fallo = 3
+                                    turno = 1
+                                finsi
+
+                                Si (comando = OROR || comando == oro) entonces
+                                    Escribir "    La cantidad de oro necesaria para escapar del laberinto es de: " + oroSalida + " unidades"
+                                    fallo = 3
+                                    turno = 1
+                                finsi
+
+                            sino
+                                Escribir "    Comando no reconocido, vuelva a Intentarlo"
+                                fallo = fallo - 1
+                                Escribir "    Intentos restantes: " + fallo + " intentos"
+                                oroAcumulado = oroAcumulado - 1
+                                Escribir "    Su cantidad de oro, ahora es de: " + oroAcumulado + " unidades"
+                            finsi
+                        finsi
+
+                        Si (fallo > 0 && fallo < 4) entonces
+
+                            
+                            Si (matriz[botfila - 2][botcolum] == J || matriz[botfila - 1][botcolum] == J || matriz[botfila - 2][botcolum - 2] == J || matriz				[botfila - 2][botcolum - 1] == J || matriz[botfila - 1][botcolum - 2] == J || matriz[botfila - 1][botcolum - 1] == J || matriz				[botfila - 2][botcolum + 1] == J || matriz[botfila - 2][botcolum + 2] == J || matriz[botfila - 1][botcolum + 1] == J || matriz				[botfila - 1][botcolum - 2] == J || matriz[botfila + 2][botcolum] == J || matriz[botfila + 1][botcolum] == J ||	matriz[botfila + 				1][botcolum - 2] == J || matriz[botfila + 1][botcolum - 1] == J || matriz[botfila + 2][botcolum - 2] == J || matriz[botfila + 2]				[botcolum - 1] == J || matriz[botfila + 1][botcolum + 1] == J || matriz[botfila + 1][botcolum + 2] == J || matriz[botfila + 2]				[botcolum + 1] == J || matriz[botfila + 2][botcolum + 2] == J || matriz[botfila][botcolum - 2] == J || matriz[botfila][botcolum - 				1] == J || matriz[botfila][botcolum + 2] == J || matriz[botfila][botcolum + 1] == J) {
+                                atacar = 1
+                            finsi
+
+                            Si (atacar == 1) entonces
+                                
+                                Si (matriz[botfila - 2][botcolum] == J || matriz[botfila - 1][botcolum] == J || matriz[botfila - 2][botcolum - 2] == J || matriz				[botfila - 2][botcolum - 1] == J || matriz[botfila - 1][botcolum - 2] == J || matriz[botfila - 1][botcolum - 1] == J || matriz				[botfila - 2][botcolum + 1] == J || matriz[botfila - 2][botcolum + 2] == J || matriz[botfila - 1][botcolum + 1] == J || matriz				[botfila - 1][botcolum - 2] == J) {
+                                    bocolum = botcolum
+                                    bofila = botfila
+                                    botfila = botfila - 1
+
+                                    Si (matriz[botfila][botcolum] == O) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = O
+                                        turno = 0;
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == G) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = G															
+                                        turno = 0
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                        botfila = botfila + 1
+                                        turno = 0
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == J) entonces
+                                        Escribir "    Atrapado"
+                                        turno = 1
+                                        fallo = 0
+                                        derrota = 1
+                                        atrapadoBot = atrapadoBot + 1
+                                    finsi
+                                    visionBot = visionBot + 1
+                                finsi
+
+                                Si (matriz[botfila + 2][botcolum] == J || matriz[botfila + 1][botcolum] == J ||	matriz[botfila + 1][botcolum - 2] == J || matriz					[botfila + 1][botcolum - 1] == J || matriz[botfila + 2][botcolum - 2] == J || matriz[botfila + 2][botcolum - 1] == J || 						matriz[botfila + 1][botcolum + 1] == J || matriz[botfila + 1][botcolum + 2] == J || matriz[botfila + 2][botcolum + 1] == J 						|| matriz[botfila + 2][botcolum + 2] == J) finsi
+                                    bocolum = botcolum
+                                    bofila = botfila
+                                    botfila = botfila + 1
+
+                                    Si (matriz[botfila][botcolum] == O) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = O
+                                        turno = 0
+                                    finsi
+
+                                    S (matriz[botfila][botcolum] == G) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = G													
+                                        turno = 0
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                        botfila = botfila - 1
+                                        turno = 0
+                                    finsi
+
+                                    if (matriz[botfila][botcolum] == J) {
+                                        System.out.println("    Atrapado");
+                                        turno = 1;
+                                        fallo = 0;
+                                        derrota = 1;
+                                        atrapadoBot = atrapadoBot + 1;
+                                    finsi	
+                                    visionBot = visionBot + 1;
+                                finsi
+
+                                Si (matriz[botfila][botcolum - 2] == J || matriz[botfila][botcolum - 1] == J) entonces
+                                    bofila = botfila;
+                                    bocolum = botcolum;
+                                    botcolum = botcolum - 1;
+
+                                    if (matriz[botfila][botcolum] == O) {							
+                                        matriz[botfila][botcolum] = 'B';
+                                        matriz[bofila][bocolum] = 'O';
+                                        turno = 0;
+                                    finsi
+
+                                    if (matriz[botfila][botcolum] == G) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = G															
+                                        turno = 0;
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                        botcolum = botcolum + 1
+                                        turno = 0
+                                    finsi
+
+                                    if (matriz[botfila][botcolum] == J) entonces
+                                        System.out.println("    Atrapado")
+                                        turno = 1
+                                        fallo = 0
+                                        derrota = 1
+                                        atrapadoBot = atrapadoBot + 1
+                                    finsi
+                                    visionBot = visionBot + 1
+                                finsi
+
+                                if (matriz[botfila][botcolum + 2] == J || matriz[botfila][botcolum + 1] == J) entonces
+                                    bofila = botfila
+                                    bocolum = botcolum
+                                    botcolum = botcolum + 1
+
+                                    if (matriz[botfila][botcolum] == O) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = O
+                                        turno = 0
+                                    finsi
+
+                                    if (matriz[botfila][botcolum] == G) entonces							
+                                        matriz[botfila][botcolum] = B
+                                        matriz[bofila][bocolum] = G													
+                                        turno = 0
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                        botcolum = botcolum - 1
+                                        turno = 0
+                                    finsi
+
+                                    Si (matriz[botfila][botcolum] == J) entonces
+                                        Escribir"    Atrapado"
+                                        turno = 1
+                                        fallo = 0
+                                        derrota = 1
+                                        atrapadoBot = atrapadoBot + 1
+                                    finsi
+                                    visionBot = visionBot + 1
+                                finis
+
+                            sino
+                                Si (atacar == 0) entonces
+
+                                    mientras (paso == 0) hacer	
+                                        int seguir = (int) (Math.random()*3)
+
+                                        Si (seguir == 0) entonces
+                                            bofila = botfila
+                                            bocolum = botcolum
+                                            botcolum = botcolum - 1
+
+                                            Si (matriz[botfila][botcolum] == O) entonces							
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = O
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == G) entonces							
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = G	
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                                botcolum = botcolum + 1
+                                                paso = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == J) entonces
+                                                Escribir "    Atrapado"
+                                                paso = 1
+                                                turno = 1
+                                                fallo = 0
+                                                derrota = 1
+                                                atrapadoBot = atrapadoBot + 1
+                                            finsi
+                                            movimientoB = movimientoB + 1
+                                        finsi
+
+                                        Si (seguir == 1) entonces
+                                            bofila = botfila;
+                                            bocolum = botcolum;
+                                            botcolum = botcolum + 1;
+
+                                            if (matriz[botfila][botcolum] == O) entonces							
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = O
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == G) entonces							
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = G
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                                botcolum = botcolum - 1;
+                                                paso = 0;
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == J) entonces
+                                                Escribir "    Atrapado"
+                                                paso = 1
+                                                turno = 1
+                                                fallo = 0
+                                                derrota = 1
+                                                atrapadoBot = atrapadoBot + 1
+                                            finsi
+                                            movimientoB = movimientoB + 1
+                                        finsi
+
+                                        if (seguir == 2) entonces
+                                            bocolum = botcolum
+                                            bofila = botfila
+                                            botfila = botfila - 1
+
+                                            Si (matriz[botfila][botcolum] == O) entonces						
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = O
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == G) entonces
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = G
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            if (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) {
+                                                botfila = botfila + 1;
+                                                paso = 0;
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == J) entonces
+                                                Escribir"    Atrapado"
+                                                paso = 1
+                                                turno = 1
+                                                fallo = 0
+                                                derrota = 1
+                                                atrapadoBot = atrapadoBot + 1
+                                            finsi
+                                            movimientoB = movimientoB + 1
+                                        finsi	
+
+                                        Si (seguir == 3) entonces
+                                            bocolum = botcolum;
+                                            bofila = botfila;
+                                            botfila = botfila + 1;
+
+                                            if (matriz[botfila][botcolum] == O) entonces							
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = O
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            if (matriz[botfila][botcolum] == G) entonces							
+                                                matriz[botfila][botcolum] = B
+                                                matriz[bofila][bocolum] = G
+                                                paso = 1
+                                                turno = 0
+                                            finsi
+
+                                            Si (matriz[botfila][botcolum] == U || matriz[botfila][botcolum] == S) entonces
+                                                botfila = botfila - 1
+                                                paso = 0
+                                            entonces
+
+                                            Si (matriz[botfila][botcolum] == J) entonces
+                                                Escribir"    Atrapado"
+                                                fallo = 0
+                                                turno = 1
+                                                paso = 1
+                                                derrota = 1
+                                                atrapadoBot = atrapadoBot + 1
+                                            finsi
+                                            movimientoB = movimientoB + 1
+                                        finsi
+                                    fin_mientras
+                                finsi
+                            finsi
+                        finsi
+                        Si (fallo == 0) entonces
+                            Escribir "    Perdiste"
+                            turno = 1           
+                        finsi
+
+                        Si (fallo == 4) entonces
+                            Escribir "    Felicidades has Ganado"
+                            turno = 1;
+                        finsi
+                    fin_mientras
+                    
+                    Escribir "Cantidad de Oro recolectado: " + oroAcumulado + " unidades de Oro"
+                    Leer oroPro
+                finsi
+        
+                Si (opcion == 2) entonces
+            
+                finsi
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+	3) Algoritmo para CREAR MAPA:
+		Este algoritmo estuvo pensado teniendo como limitante el visor de dimensiones 5x5 ya que presentaba un problema para el juego cuando el jugador llegaba 		a una esquina ya que se perdia la visión 5x5 del jugador cuando usaba el comando MIRAR, para resolverlo se le hizo una pared extra en cada lado del 		cuadrado con casillas vacias para que aunque el jugador este en la esquina del mapa al momento de ejecutar el comando MIRAR siga teniendo una visión de 		5x5.
+
+		
+		Var tamaño = 0
+                Var borde = 0
+                Var cont = 0
+                
+                Escribir "NOTA: Tomar en cuenta lo siguiente antes de empezar a contruir su mapa"
+                Escribir "    - El mapa se llenara de izquierda a derecha por filas"
+                Escribir "    - Debe de colocar una o varias casillas de salida"
+                Escribir "    - Cuide que la cantidad de oro que pida para ganar sea menor a la cantidad de oro dentro del mapa" 
+                
+                Escribir "Ingrese el tamaño del mapa de ancho y alto = X");
+                Leer tamaño
+
+                borde = tamaño + 2
+                cont = borde - 1
+                char[][] matriz2 = new char[borde][borde]
+                        
+                Desde i = 0; hasta borde; 1				
+                    matriz2[i][0] = ' '
+                    matriz2[i][cont] = ' '
+                fin_desde
+
+                Desde i = 0; hasta tamaño; 1
+                    matriz2[0][i] = ' '
+                    matriz2[cont][i] = ' '
+                fin_desde
+                
+                conta = 1
+                ind = 1
+                
+                mientras (conta <= tamaño) hacer
+                    Escribir "Escriba el valor de la casilla"
+                    Leer matriz2[conta][ind]
+									
+                    Si (ind == tamaño) entonces
+                        conta = conta + 1
+                        ind = 1
+								
+                    sino Si (ind < tamaño) entonces
+                            ind = ind + 1
+                         finsi
+                    finsi
+                finsi
+
+                nombre = null
+                Escribir "Escriba el nombre del mapa"
+                leer nombre
+
+                requerido = 0
+                Escribir "Escriba la cantidad de Oro que se necesitara para Salir"
+                leer requerido
+
+                c = 1
+                u = 1
+                oroMapa = 0
+
+                mientras (c <= tamaño) hacer
+
+                    Si (matriz2[c][u] == Gg) entonces
+                        oroMapa = oroMapa + 1
+                    finsi
+												
+                    Si (u == tamaño) entonces
+                        c = c + 1
+                        u = 1
+								
+                    sino Si (u < tamaño) entonces
+                             u = u + 1;
+                         finsi
+                    finsi
+                finsi
+
+                Si (oroMapa >= requerido) entonces
+                    Escribir "Guardado Correctamente"
+                finsi
+
+                Si (oroMapa < requerido) entonces
+                    Escribir "La cantidad de Oro no es sufiente para poder Salir"
+                    Escribir "La cantidad dentro del mapa es de: " + oroMapa + " unidades"
+                    Escribir "Cambie la cantidad de Oro para salir para arreglar el problema"
+                    Leer requerido			
+                    Escribir "Guardado Correctamente"
+                finsi
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+	4) Algoritmo para la VISUALIZACIÓN:
+		Esta opción le va permitir al Jugador tener una vista completa tanto del mapa Principal como del mapa creado por el Jugador y para ello se usaron como 		parametro los datos de la matriz, el nombre el mapa y el tamaño del mapa creado y se utilizaron ciclos para crear la imagen.
+
+		Var mapa
+
+		Escribir "Seleccione un Número"
+                Escribir "    1. Ver MAPA: PRINCIPAL"
+                Escribir "    2. ver MAPA: " + nombre
+                Leer mapa
+                        
+                        Si (mapaVer == 1) entonces
+
+                            Desde i = 0; i < 32; 1 
+						
+                                Desde j = 0; j < 32; 1
+                                	Escribir matriz[i][j]
+                                fin_desde
+
+                            fin_desde
+
+                        finsi
+                        
+                        Si (mapaVer == 2) entonces
+
+                            Desde (i = 0; i < borde; 1)
+						
+                                Desde (j = 0; j < borde; 1
+                                	Escribir matriz2[i][j])
+                                fin_desde
+ 
+                            fin_desde
+
+                        finsi
+
+
+		
+		
